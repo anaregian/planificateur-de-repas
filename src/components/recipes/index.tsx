@@ -1,5 +1,54 @@
 import React from "react";
+import { Typography, Grid, makeStyles, Theme, createStyles, IconButton } from "@material-ui/core";
+import { Search } from "./components/Search";
+import { Recipe } from "./components/Recipe";
+import { AddCircleOutline } from "@material-ui/icons";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    spacer: {
+      marginBottom: theme.spacing(4)
+    }
+  })
+);
 
 export const Recipes: React.FC = () => {
-  return <div>Recipes</div>;
+  const classes = useStyles();
+
+  return (
+    <>
+      <Grid container spacing={2} className={classes.spacer}>
+        <Grid item xs={12}>
+          <Typography variant="h3">
+            Recettes
+            <IconButton color="primary" aria-label="upload picture" component="span">
+              <AddCircleOutline fontSize="large" />
+            </IconButton>
+          </Typography>
+        </Grid>
+      </Grid>
+      <Grid container spacing={2} className={classes.spacer}>
+        <Grid item xs={6}>
+          <Search />
+        </Grid>
+      </Grid>
+      <Grid container spacing={2} className={classes.spacer}>
+        <Grid item xs={3}>
+          <Recipe />
+        </Grid>
+        <Grid item xs={3}>
+          <Recipe />
+        </Grid>
+        <Grid item xs={3}>
+          <Recipe />
+        </Grid>
+        <Grid item xs={3}>
+          <Recipe />
+        </Grid>
+        <Grid item xs={3}>
+          <Recipe />
+        </Grid>
+      </Grid>
+    </>
+  );
 };
