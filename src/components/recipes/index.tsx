@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Typography, Grid, makeStyles, Theme, createStyles, IconButton } from "@material-ui/core";
 import { Search } from "./components/Search";
 import { Recipe } from "./components/Recipe";
 import { AddCircleOutline } from "@material-ui/icons";
+import { RecipeForm } from "./components/RecipeForm";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -15,13 +16,24 @@ const useStyles = makeStyles((theme: Theme) =>
 export const Recipes: React.FC = () => {
   const classes = useStyles();
 
+  const [isOpen, setOpen] = useState(false);
+
+  const handleAddIconClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <>
+      <RecipeForm isOpen={isOpen} handleClose={handleClose} />
       <Grid container spacing={2} className={classes.spacer}>
         <Grid item xs={12}>
           <Typography variant="h3">
             Recettes
-            <IconButton color="primary" aria-label="upload picture" component="span">
+            <IconButton color="primary" aria-label="upload picture" component="span" onClick={handleAddIconClick}>
               <AddCircleOutline fontSize="large" />
             </IconButton>
           </Typography>
