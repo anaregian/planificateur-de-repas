@@ -56,7 +56,9 @@ export const Calendar: React.FC = () => {
       </Grid>
 
       {daysOfWeek.map(day => (
-        <DayOfWeek currentDay={day.toString()} />
+        <div key={day.toString()}>
+          <DayOfWeek currentDay={day.toString()} />
+        </div>
       ))}
     </>
   );

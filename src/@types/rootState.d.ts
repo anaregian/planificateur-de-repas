@@ -1,0 +1,3 @@
+type RootState = {
+  user: UserState;
+};

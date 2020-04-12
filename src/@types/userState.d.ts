@@ -1,0 +1,3 @@
+type UserState = {
+  currentUser: string;
+};

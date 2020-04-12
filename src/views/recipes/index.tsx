@@ -45,19 +45,16 @@ export const Recipes: React.FC = () => {
         </Grid>
       </Grid>
       <Grid container spacing={2} className={classes.spacer}>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
           <Recipe />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
           <Recipe />
         </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
           <Recipe />
         </Grid>
-        <Grid item xs={3}>
-          <Recipe />
-        </Grid>
-        <Grid item xs={3}>
+        <Grid item xs={12} sm={6} md={4} lg={3}>
           <Recipe />
         </Grid>
       </Grid>

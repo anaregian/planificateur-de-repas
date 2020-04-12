@@ -14,11 +14,14 @@ import {
 } from "@material-ui/core";
 import { Today, Assignment, ShoppingCart, FormatListNumbered } from "@material-ui/icons";
 import { useHistory, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { userActions } from "@app/context/user/store";
 
 export const Container: React.FC = ({ children }) => {
   const classes = useStyles();
   const history = useHistory();
   const { pathname } = useLocation();
+  const dispatch = useDispatch();
 
   const menuItems: MenuItem[] = [
     {
@@ -51,6 +54,10 @@ export const Container: React.FC = ({ children }) => {
     history.push(link);
   };
 
+  const handleLogout = (e: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(userActions.logout());
+  };
+
   return (
     <div className={classes.root}>
       <AppBar position="fixed" className={classes.appBar}>
@@ -58,7 +65,9 @@ export const Container: React.FC = ({ children }) => {
           <Typography variant="h6" className={classes.title}>
             Planificateur de repas
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button onClick={handleLogout} color="inherit">
+            Déconnexion
+          </Button>
         </Toolbar>
       </AppBar>
       <Drawer
