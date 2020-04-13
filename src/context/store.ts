@@ -1,10 +1,24 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { userSlice } from "./user/store";
+import logger from "redux-logger";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
+import { StorageUnitContextState, storageUnitSlice } from "./storage-unit/store";
+import { PlannerContextState, plannerSlice } from "./planner/store";
+import { recipeSlice, RecipeContextState } from "./recipe/store";
+import { userSlice, UserContextState } from "./user/store";
 
-const reducer = {
-  user: userSlice.reducer
+export type RootState = {
+  userContext: UserContextState;
+  recipeContext: RecipeContextState;
+  plannerContext: PlannerContextState;
+  storageUnitContext: StorageUnitContextState;
 };
 
-export default configureStore({
-  reducer
-});
+const reducer = {
+  userContext: userSlice.reducer,
+  recipeContext: recipeSlice.reducer,
+  plannerContext: plannerSlice.reducer,
+  storageUnitContext: storageUnitSlice.reducer
+};
+
+const middleware = [...getDefaultMiddleware(), logger];
+
+export const store = configureStore({ reducer, middleware });

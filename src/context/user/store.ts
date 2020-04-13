@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-const initialUserState: UserState = {
+
+export type UserContextState = {
+  currentUser: string;
+};
+
+const initialUserState: UserContextState = {
   currentUser: "asd"
 };
 

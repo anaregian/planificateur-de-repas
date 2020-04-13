@@ -1,3 +1,0 @@
-type UserState = {
-  currentUser: string;
-};

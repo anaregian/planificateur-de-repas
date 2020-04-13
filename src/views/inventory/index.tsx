@@ -3,6 +3,8 @@ import { makeStyles, Theme, createStyles, Grid, Typography, IconButton } from "@
 import { StorageUnit } from "./components/StorageUnit";
 import { AddCircleOutline } from "@material-ui/icons";
 import { StorageUnitForm } from "./components/StorageUnitForm";
+import { useSelector } from "react-redux";
+import { RootState } from "@app/context/store";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -14,8 +16,11 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export const Inventory: React.FC = () => {
   const classes = useStyles();
-
   const [isOpen, setOpen] = useState(false);
+
+  const { storageUnits } = useSelector((state: RootState) => ({
+    storageUnits: state.storageUnitContext.storageUnits
+  }));
 
   const handleAddIconClick = () => {
     setOpen(true);
@@ -40,8 +45,9 @@ export const Inventory: React.FC = () => {
       </Grid>
       <Grid container spacing={2} className={classes.spacer}>
         <Grid item xs={12}>
-          <StorageUnit />
-          <StorageUnit />
+          {storageUnits.map(unit => (
+            <StorageUnit key={unit.name} storageUnit={unit} />
+          ))}
         </Grid>
       </Grid>
     </>

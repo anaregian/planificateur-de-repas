@@ -8,10 +8,11 @@ import { Recipes } from "./views/recipes";
 import { GroceryList } from "./views/grocery-list";
 import { Container } from "./views/common";
 import { LoginPage } from "./views/user";
+import { RootState } from "./context/store";
 
 export const App: React.FC = () => {
   const { currentUser } = useSelector((state: RootState) => ({
-    currentUser: state.user.currentUser
+    currentUser: state.userContext.currentUser
   }));
 
   const routesWithAuth = (

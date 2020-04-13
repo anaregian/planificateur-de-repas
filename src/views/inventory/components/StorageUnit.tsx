@@ -9,39 +9,92 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
-  TextField
+  TextField,
+  Theme,
+  makeStyles,
+  createStyles
 } from "@material-ui/core";
 import { ExpandMore, Delete, Add } from "@material-ui/icons";
-import { useStyles } from "./StorageUnit.style";
+import { useDispatch } from "react-redux";
+import { storageUnitActions } from "@app/context/storage-unit/store";
+import { useForm } from "@app/hooks/useForm";
 
-export const StorageUnit: React.FC = () => {
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: "100%"
+    },
+    heading: {
+      fontSize: theme.typography.pxToRem(15),
+      fontWeight: theme.typography.fontWeightRegular
+    }
+  })
+);
+
+type OwnProps = {
+  storageUnit: StorageUnit;
+};
+
+type Props = OwnProps;
+
+export const StorageUnit: React.FC<Props> = ({ storageUnit }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { handleChange, values } = useForm({ name: "" });
+
+  const addIngredient = (e: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(storageUnitActions.addIngredient({ id: storageUnit.id, name: values.name }));
+  };
+
+  const deleteStorageUnit = (e: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(storageUnitActions.delete({ id: storageUnit.id }));
+  };
+
+  const deleteIngredient = (ingredientId: string) => (e: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(storageUnitActions.removeIngredient({ id: storageUnit.id, ingredientId }));
+  };
 
   return (
     <ExpansionPanel>
       <ExpansionPanelSummary expandIcon={<ExpandMore />} aria-controls="panel1a-content" id="panel1a-header">
-        <Typography className={classes.heading}>Frigo cuisine</Typography>
+        <Typography className={classes.heading}>
+          {storageUnit.name}
+          <IconButton onClick={deleteStorageUnit} edge="end">
+            <Delete />
+          </IconButton>
+        </Typography>
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <List dense>
           <ListItem>
             <ListItemText>
-              <TextField autoFocus size="small" variant="outlined" type="text" fullWidth />
+              <TextField
+                autoFocus
+                onChange={handleChange}
+                value={values.name}
+                name="name"
+                size="small"
+                variant="outlined"
+                type="text"
+                fullWidth
+              />
             </ListItemText>
             <ListItemSecondaryAction>
-              <IconButton edge="end">
+              <IconButton onClick={addIngredient} edge="end">
                 <Add />
               </IconButton>
             </ListItemSecondaryAction>
           </ListItem>
-          <ListItem>
-            <ListItemText>Hello</ListItemText>
-            <ListItemSecondaryAction>
-              <IconButton edge="end">
-                <Delete />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
+          {storageUnit.ingredients.map(ingredient => (
+            <ListItem key={ingredient.id}>
+              <ListItemText>{ingredient.name}</ListItemText>
+              <ListItemSecondaryAction>
+                <IconButton onClick={deleteIngredient(ingredient.id)} edge="end">
+                  <Delete />
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          ))}
         </List>
       </ExpansionPanelDetails>
     </ExpansionPanel>

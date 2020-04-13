@@ -21,11 +21,11 @@ export const DatePicker: React.FC<Props> = ({ currentDate, handlePrevious, handl
           <NavigateBefore fontSize="large" />
         </IconButton>
         {format(startOfWeek(currentDate), "'Semaine du' d MMMM yyyy", { locale: fr })}
-        <IconButton color="primary" component="span">
-          <NavigateNext fontSize="large" onClick={handleNext} />
+        <IconButton onClick={handleNext} color="primary" component="span">
+          <NavigateNext fontSize="large" />
         </IconButton>
-        <IconButton color="primary" component="span">
-          <Today fontSize="large" onClick={handleToday} />
+        <IconButton onClick={handleToday} color="primary" component="span">
+          <Today fontSize="large" />
         </IconButton>
       </Typography>
     </>

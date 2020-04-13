@@ -1,6 +1,23 @@
 import React from "react";
-import { List, ListItem, Checkbox, ListItemText, ListItemIcon } from "@material-ui/core";
-import { useStyles } from "./GroceryList.style";
+import {
+  List,
+  ListItem,
+  Checkbox,
+  ListItemText,
+  ListItemIcon,
+  makeStyles,
+  createStyles,
+  Theme
+} from "@material-ui/core";
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      width: "100%",
+      maxWidth: 360
+    }
+  })
+);
 
 export const GroceryList: React.FC = () => {
   const classes = useStyles();

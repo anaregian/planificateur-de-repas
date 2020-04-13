@@ -1,5 +1,4 @@
 import React from "react";
-import { useStyles } from "./Container.style";
 import {
   AppBar,
   Button,
@@ -10,12 +9,45 @@ import {
   ListItem,
   Drawer,
   ListItemIcon,
-  ListItemText
+  ListItemText,
+  makeStyles,
+  Theme,
+  createStyles
 } from "@material-ui/core";
 import { Today, Assignment, ShoppingCart, FormatListNumbered } from "@material-ui/icons";
 import { useHistory, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { userActions } from "@app/context/user/store";
+
+const drawerWidth = 240;
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: "flex"
+    },
+    appBar: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth
+    },
+    title: {
+      flexGrow: 1
+    },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0
+    },
+    drawerPaper: {
+      width: drawerWidth
+    },
+    toolbar: theme.mixins.toolbar,
+    content: {
+      flexGrow: 1,
+      backgroundColor: theme.palette.background.default,
+      padding: theme.spacing(3)
+    }
+  })
+);
 
 export const Container: React.FC = ({ children }) => {
   const classes = useStyles();
