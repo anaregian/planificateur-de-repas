@@ -13,6 +13,7 @@ import {
   IconButton
 } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
+import { isWithinInterval, startOfWeek, endOfWeek } from "date-fns";
 import { RootState, store } from "@app/context/store";
 import { useForm } from "@app/hooks/useForm";
 import { Add } from "@material-ui/icons";
@@ -40,15 +41,21 @@ export const GroceryList: React.FC = () => {
     dispatch(groceryListActions.addIngredient({ ingredient: createdIngredient }));
   };
 
-  const { ingredients, recipeIngredients, inventory, groceryListIngredients } = useSelector((state: RootState) => ({
-    ingredients: state.ingredientContext.ingredients,
-    recipeIngredients: state.recipeContext.recipes.flatMap(r => r.ingredients),
-    inventory: state.storageUnitContext.storageUnits.flatMap(su => su.ingredients),
-    groceryListIngredients: state.groceryListContext.items
-  }));
+  const { ingredients, plannedRecipeIngredients, inventory, groceryListIngredients } = useSelector(
+    (state: RootState) => ({
+      ingredients: state.ingredientContext.ingredients,
+      plannedRecipeIngredients: state.plannerContext.planner
+        .filter(p => isWithinInterval(new Date(p.date), { start: startOfWeek(new Date()), end: endOfWeek(new Date()) }))
+        .flatMap(p => p.recipeIds)
+        .map(id => state.recipeContext.recipes.find(recipe => recipe.id === id))
+        .flatMap(recipe => recipe.ingredients),
+      inventory: state.storageUnitContext.storageUnits.flatMap(su => su.ingredients),
+      groceryListIngredients: state.groceryListContext.items
+    })
+  );
 
   const recipeIngredientsToBuy = ingredients
-    .filter(ingredients => recipeIngredients.includes(ingredients))
+    .filter(ingredients => plannedRecipeIngredients.includes(ingredients))
     .filter(ingredients => !inventory.includes(ingredients));
 
   const extraIngredientsToBuy = groceryListIngredients.filter(gli => !recipeIngredientsToBuy.includes(gli));

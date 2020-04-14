@@ -7,7 +7,7 @@ export const chicken: Ingredient = {
 
 export const steak: Ingredient = {
   id: uuid(),
-  name: "steak"
+  name: "Steak"
 };
 
 export const salmon: Ingredient = {
