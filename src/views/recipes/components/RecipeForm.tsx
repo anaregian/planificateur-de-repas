@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import { TextField, makeStyles, Theme, createStyles } from "@material-ui/core";
 import { Dialog } from "@app/views/common/components/Dialog";
 import { useForm } from "@app/hooks/useForm";
 import { recipeActions } from "@app/context/recipe/store";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState, store } from "@app/context/store";
+import { ingredientActions } from "@app/context/ingredient/store";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,7 +22,7 @@ type RecipeFormModel = {
   title: string;
   description: string;
   image: string;
-  ingredients: Ingredient[];
+  ingredients: string;
   directions: string;
   tags: string;
   timeToCook: number;
@@ -52,12 +54,16 @@ export const RecipeForm: React.FC<Props> = ({
   const classes = useStyles();
   const dispatch = useDispatch();
 
+  const { ingredients } = useSelector((state: RootState) => ({
+    ingredients: state.ingredientContext.ingredients
+  }));
+
   const recipeFormModel: RecipeFormModel = {
     id: recipe.id,
     title: recipe.title,
     description: recipe.description,
     image: recipe.image,
-    ingredients: recipe.ingredients,
+    ingredients: recipe.ingredients.map(i => i.name).join(", "),
     directions: recipe.directions,
     tags: recipe.tags.join(", "),
     timeToCook: recipe.timeToCook
@@ -71,13 +77,20 @@ export const RecipeForm: React.FC<Props> = ({
       title: values.title,
       description: values.description,
       image: values.image,
-      ingredients: values.ingredients,
+      ingredients: values.ingredients.split(/[ , ]+/).map(name => {
+        const exists = ingredients.find(i => i.name === name);
+
+        if (exists) {
+          return exists;
+        }
+
+        dispatch(ingredientActions.create({ name }));
+        return store.getState().ingredientContext.ingredients.find(i => i.name === name);
+      }),
       directions: values.directions,
       tags: values.tags.split(","),
       timeToCook: values.timeToCook
     };
-
-    console.log(recipe);
 
     if (actionType === "create") {
       dispatch(recipeActions.create(recipe));
@@ -115,6 +128,15 @@ export const RecipeForm: React.FC<Props> = ({
         rows={3}
         variant="outlined"
         label="Description"
+        type="text"
+        fullWidth
+      />
+      <TextField
+        name="ingredients"
+        onChange={handleChange}
+        value={values.ingredients}
+        variant="outlined"
+        label="ingrédients (séparés avec des virgules)"
         type="text"
         fullWidth
       />

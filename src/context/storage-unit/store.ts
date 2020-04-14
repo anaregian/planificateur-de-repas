@@ -35,22 +35,11 @@ export const storageUnitSlice = createSlice({
         state.storageUnits.splice(index, 1);
       }
     },
-    addIngredient: {
-      prepare: ({ id, name }: { id: string; name: string }) => ({
-        payload: {
-          id,
-          ingredient: {
-            id: uuid(),
-            name
-          }
-        }
-      }),
-      reducer: (state, { payload }: PayloadAction<{ id: string; ingredient: Ingredient }>) => {
-        const unit = state.storageUnits.find(unit => unit.id === payload.id);
+    addIngredient: (state, { payload }: PayloadAction<{ id: string; ingredient: Ingredient }>) => {
+      const unit = state.storageUnits.find(unit => unit.id === payload.id);
 
-        if (unit) {
-          unit.ingredients.push(payload.ingredient);
-        }
+      if (unit) {
+        unit.ingredients.push(payload.ingredient);
       }
     },
     removeIngredient: (state, { payload }: PayloadAction<{ id: string; ingredientId: string }>) => {

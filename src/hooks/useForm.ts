@@ -10,5 +10,19 @@ export const useForm = <T>(initialState: T) => {
     });
   };
 
+  const addToArray = (field: any, value: any) => (e: React.MouseEvent<HTMLElement>) => {
+    setValues({
+      ...values,
+      [field]: [...values[field], value]
+    });
+  };
+
+  const removeFromArray = (field: any, value: any) => (e: React.MouseEvent<HTMLElement>) => {
+    setValues({
+      ...values,
+      [field]: [...values[field], value]
+    });
+  };
+
   return { handleChange, values };
 };

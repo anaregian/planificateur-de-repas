@@ -5,17 +5,24 @@ export const chicken: Ingredient = {
   name: "Poulet"
 };
 
-export const beef: Ingredient = {
+export const steak: Ingredient = {
   id: uuid(),
-  name: "Boeuf"
+  name: "steak"
 };
 
-export const fish: Ingredient = {
+export const salmon: Ingredient = {
   id: uuid(),
-  name: "Poisson"
+  name: "Saumon"
 };
 
 export const rice: Ingredient = {
   id: uuid(),
   name: "Riz"
 };
+
+export const fries: Ingredient = {
+  id: uuid(),
+  name: "Frites"
+};
+
+export const ingredients = [chicken, steak, salmon, rice, fries];

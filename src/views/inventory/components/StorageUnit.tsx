@@ -18,6 +18,8 @@ import { ExpandMore, Delete, Add } from "@material-ui/icons";
 import { useDispatch } from "react-redux";
 import { storageUnitActions } from "@app/context/storage-unit/store";
 import { useForm } from "@app/hooks/useForm";
+import { ingredientActions } from "@app/context/ingredient/store";
+import { store } from "@app/context/store";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -43,7 +45,9 @@ export const StorageUnit: React.FC<Props> = ({ storageUnit }) => {
   const { handleChange, values } = useForm({ name: "" });
 
   const addIngredient = (e: React.MouseEvent<HTMLButtonElement>) => {
-    dispatch(storageUnitActions.addIngredient({ id: storageUnit.id, name: values.name }));
+    dispatch(ingredientActions.create({ name: values.name }));
+    const createdIngredient = store.getState().ingredientContext.ingredients.find(i => i.name === values.name);
+    dispatch(storageUnitActions.addIngredient({ id: storageUnit.id, ingredient: createdIngredient }));
   };
 
   const deleteStorageUnit = (e: React.MouseEvent<HTMLButtonElement>) => {

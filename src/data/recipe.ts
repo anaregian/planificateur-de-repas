@@ -1,35 +1,37 @@
 import { v1 as uuid } from "uuid";
-import { chicken, rice, beef, fish } from "./ingredient";
+import { chicken, rice, steak, salmon, fries } from "./ingredient";
 
-export const recipes: Recipe[] = [
-  {
-    id: uuid(),
-    title: "Chicken and rice",
-    image: `https://picsum.photos/seed/${uuid()}/500/400`,
-    description: "A lovely chicken dish",
-    ingredients: [chicken, rice],
-    directions: "Cook everything",
-    tags: ["chicken", "meat"],
-    timeToCook: 30
-  },
-  {
-    id: uuid(),
-    title: "Beef and rice",
-    image: `https://picsum.photos/seed/${uuid()}/500/400`,
-    description: "A lovely beef dish",
-    ingredients: [beef, rice],
-    directions: "Cook everything",
-    tags: ["beef", "meat"],
-    timeToCook: 40
-  },
-  {
-    id: uuid(),
-    title: "Fish and rice",
-    image: `https://picsum.photos/seed/${uuid()}/500/400`,
-    description: "A lovely fish dish",
-    ingredients: [fish, rice],
-    directions: "Cook everything",
-    tags: ["fish", "meat"],
-    timeToCook: 50
-  }
-];
+export const chickenAndRice: Recipe = {
+  id: uuid(),
+  title: "Poulet et riz",
+  image: `https://picsum.photos/seed/${uuid()}/500/400`,
+  description: "du poulet avec du riz",
+  ingredients: [chicken, rice],
+  directions: "cuir dans le four",
+  tags: ["poulet", "viande"],
+  timeToCook: 30
+};
+
+export const steakAndfries: Recipe = {
+  id: uuid(),
+  title: "Steak frites",
+  image: `https://picsum.photos/seed/${uuid()}/500/400`,
+  description: "Du steak et des frites",
+  ingredients: [steak, fries],
+  directions: "cuir sur la cuisiniere",
+  tags: ["steak", "viande"],
+  timeToCook: 40
+};
+
+export const salmonAndRice: Recipe = {
+  id: uuid(),
+  title: "Saumon et riz",
+  image: `https://picsum.photos/seed/${uuid()}/500/400`,
+  description: "Du saumon et du riz",
+  ingredients: [salmon, rice],
+  directions: "cuir dans le four",
+  tags: ["saumon", "poisson"],
+  timeToCook: 50
+};
+
+export const recipes: Recipe[] = [chickenAndRice, steakAndfries, salmonAndRice];
