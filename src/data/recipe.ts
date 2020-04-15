@@ -7,7 +7,7 @@ export const chickenAndRice: Recipe = {
   image: `https://picsum.photos/seed/${uuid()}/500/400`,
   description: "du poulet avec du riz",
   ingredients: [chicken, rice],
-  directions: "cuir dans le four",
+  directions: "cuire dans le four",
   tags: ["poulet", "viande"],
   timeToCook: 30
 };
@@ -18,7 +18,7 @@ export const steakAndfries: Recipe = {
   image: `https://picsum.photos/seed/${uuid()}/500/400`,
   description: "Du steak et des frites",
   ingredients: [steak, fries],
-  directions: "cuir sur la cuisiniere",
+  directions: "cuire sur la cuisiniere",
   tags: ["steak", "viande"],
   timeToCook: 40
 };
@@ -29,7 +29,7 @@ export const salmonAndRice: Recipe = {
   image: `https://picsum.photos/seed/${uuid()}/500/400`,
   description: "Du saumon et du riz",
   ingredients: [salmon, rice],
-  directions: "cuir dans le four",
+  directions: "cuire dans le four",
   tags: ["saumon", "poisson"],
   timeToCook: 50
 };

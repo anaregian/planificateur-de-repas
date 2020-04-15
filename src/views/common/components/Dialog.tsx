@@ -43,7 +43,7 @@ export const Dialog: React.FC<Props> = ({ isOpen, onClose, onConfirm, title, chi
       <DialogContent className={classes.content}>{children}</DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="secondary">
-          Annuller
+          Annuler
         </Button>
         <Button onClick={confirmAndClose} color="primary">
           Confirmer

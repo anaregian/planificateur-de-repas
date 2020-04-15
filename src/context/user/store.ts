@@ -5,7 +5,7 @@ export type UserContextState = {
 };
 
 const initialUserState: UserContextState = {
-  currentUser: "asd"
+  currentUser: null
 };
 
 export const userSlice = createSlice({
